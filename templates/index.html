@@ -1,0 +1,14 @@
+<h1>Welcome!</h1>
+
+{% if request.user.is_authenticated %}
+<h3>You are logged in as {{ request.user.username }}</h3>
+<a href='/users/logout/'>Log Out</a>
+{% else %}
+<h3>You are logged out</h3>
+{% if 'login' not in request.path %}
+<a href='/users/login/'>Login</a>
+{% endif %}
+{% endif %}
+
+{% block content %}
+{% endblock %}
