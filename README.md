@@ -43,7 +43,10 @@ Character creation model concept:
     'sub-race': fk_subrace
     'background': fk_background
     'player_name': fk_user_username
-    'faction': fk_factions(?)
+    'alignments': {
+        'order': (lawful, neutral, chaotic)
+        'disposition': (good, neutral, evil)
+    }
     'experience_points': intfield, default=1
     'ability_score_options': list of ints, default=[15, 14, 13, 12, 10, 8] # or you can roll for options(possibly)
     'ability_score_categories': many-to-many abilities?
@@ -76,6 +79,16 @@ Character creation model concept:
         'charisma': intfield, default=0
     } #refer to class features
     'skills': #choose from given list, refer to class
+    'bonus-language': #choose from language list
+    'equipment': list from race/class/background
+    personality traits/ideals/bonds/flaws (?)
+    'passive-wisdom': intfield, default=10 + perception skill bonus
+    'initiative': intfield, default=dexterity modifier(possibly adjusted with class)
+    'inspiration': intfield, default=0(given by DM)
+    'armor-class': intfield, default=armor-type + dexterity + shield(?)
+    'attacks/spells': list of objects representing attacks/spells
+    'spellsave-dc': 8 + prof bonus + spellcast ability mod
+    'spellattack-bonus': prof bonus + spellcast ability mod + other sources
 
     ...more to come
 }
