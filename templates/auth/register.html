@@ -29,8 +29,5 @@
     {% endfor %}
     {% endfor %}
     <input type='submit' class='button' value='{{header}}'/>
-    {% if 'login' in request.path %}
-    <p>New User? <a href='/users/register/'>Create an account</a>!</p>
-    {% endif %}
 </form>
 {% endblock %}

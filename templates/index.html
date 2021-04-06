@@ -1,14 +1,32 @@
-<h1>Welcome!</h1>
-
-{% if request.user.is_authenticated %}
-<h3>You are logged in as {{ request.user.username }}</h3>
-<a href='/users/logout/'>Log Out</a>
-{% else %}
-<h3>You are logged out</h3>
-{% if 'login' not in request.path %}
-<a href='/users/login/'>Login</a>
-{% endif %}
-{% endif %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
+<header>
+    {% if request.user.is_authenticated %}
+    <div>
+        <h3>Welcome, {{ request.user.username }}</h3>
+        <img
+            id='header-profile-photo'
+            src="{{ request.user.photo_url }}"
+            alt="{{ request.user.username }}'s Photo"
+            width='75'
+        />
+    </div>
+    <a href='/users/logout/'>Log Out</a>
+    {% else %}
+    <div>
+        <h3>You are logged out</h3>
+        <img
+            id='header-profile-photo'
+            src="https://cdn3.iconfinder.com/data/icons/galaxy-open-line-gradient-i/200/contacts-512.png"
+            alt="{{ request.user.username }}'s Photo"
+            width='75'
+        />
+    </div>
+    {% if 'login' not in request.path %}
+    <a href='/users/login'>Login</a>
+    {% endif %}
+    {% endif %}
+</header>
 
 {% block content %}
 {% endblock %}

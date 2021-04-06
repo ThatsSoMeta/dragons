@@ -83,7 +83,7 @@ class LoginView(View):
                 {
                     'form': form,
                     'header': 'Login',
-                    'errors': ['Email and password do not match.']
+                    'errors': ['Email and password do not match']
                 }
             )
 
@@ -94,6 +94,7 @@ def logout_view(request):
     return redirect('homepage')
 
 
-@login_required
 def homepage_view(request):
-    return render(request, 'index.html')
+    if request.user.is_authenticated:
+        return render(request, 'homepage.html')
+    return render(request, 'landing.html')

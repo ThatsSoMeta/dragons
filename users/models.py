@@ -6,6 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 
+PHOTO_URL = "https://cdn3.iconfinder.com/data/icons/galaxy-open-line-gradient-i/200/contacts-512.png"
+
+
 class CustomUserManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
@@ -48,11 +51,7 @@ class CustomUserManager(BaseUserManager):
 class DragonUser(AbstractUser):
     photo_url = models.URLField(
         blank=True,
-        default='''
-        https://cdn3.iconfinder.com/data/icons/
-        galaxy-open-line-gradient-i/200/
-        contacts-512.png
-        '''
+        default=PHOTO_URL
     )
     email = models.EmailField(
         unique=True,
