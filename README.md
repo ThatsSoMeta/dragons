@@ -58,14 +58,6 @@ Character creation model concept:
         'wisdom': intfield, default=0
         'charisma': intfield, default=0
     }
-    'ability-modifiers': {
-        'strength': intfield, default=0
-        'dexterity': intfield, default=0
-        'constitution': intfield, default=0
-        'intelligence': intfield, default=0
-        'wisdom': intfield, default=0
-        'charisma': intfield, default=0
-    }
     'features/traits': many-to-many with features/traits?
     'other proficiencies & languages': many-to-many-languages?
     'hit-points': refer to class

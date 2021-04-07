@@ -1,0 +1,33 @@
+{% extends '../index.html' %}
+{% block content %}
+<form method="post" action=''>
+    <h3>{{ header }}</h3>
+    {% csrf_token %}
+    <div class="form-group" id='username-input'>
+        <label>Username:</label>
+        {{form.username}}
+    </div>
+    <br/>
+    <div class="form-group" id='email-input'>
+        <label>Email:</label>
+        {{form.email}}
+    </div>
+    <br/>
+    <div class="form-group" id='password1-input'>
+        <label>Password:</label>
+        {{form.password1}}
+    </div>
+    <br/>
+    <div class="form-group" id='password2-input'>
+        <label>Confirm Password:</label>
+        {{form.password2}}
+    </div>
+    <br/>
+    {% for field in form %}
+    {% for error in field.errors %}
+    <div style='color: red'>{{error}}</div>
+    {% endfor %}
+    {% endfor %}
+    <input type='submit' class='button' value='{{header}}'/>
+</form>
+{% endblock %}

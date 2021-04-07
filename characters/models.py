@@ -6,7 +6,7 @@ from django.db import models
 
 class CharacterSheet(models.Model):
     name = models.CharField(max_length=50)
-    player = models.ForeignKey('DragonUser')
+#    player = models.ForeignKey('DragonUser', on_delete=models.CASCADE)
     level = models.IntegerField(default=1)
     race = models.CharField(max_length=20)
     alignment = models.CharField(max_length=25)
@@ -16,9 +16,9 @@ class CharacterSheet(models.Model):
     speed = models.IntegerField()
     hp = models.IntegerField()
     temp_hp = models.IntegerField()
-    feats_traits = models.CharField()
-    equipment = models.CharField()
-    languages = models.CharField()
+    feats_traits = models.CharField(max_length=255)
+    equipment = models.CharField(max_length=255)
+    languages = models.CharField(max_length=255)
 
 
 class SpellSheet(models.Model):
@@ -32,6 +32,6 @@ class SpellSheet(models.Model):
 
 
 class CharacterDescriptions(models.Model):
-    personality = models.CharField()
-    apperance = models.CharField()
-    backstory = models.CharField()
+    personality = models.CharField(max_length=255)
+    apperance = models.CharField(max_length=255)
+    backstory = models.CharField(max_length=255)
