@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import DragonUser
+from .models import DragonUser, CharacterTest
 
 
 class CreateUserForm(UserCreationForm):
@@ -15,3 +15,17 @@ class CreateUserForm(UserCreationForm):
 class LoginForm(forms.Form):
     email = forms.CharField(max_length=50)
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class EditProfileForm(forms.Form):
+    username = forms.CharField(max_length=50, required=False)
+    photo_url = forms.URLField(required=False)
+
+
+class CharacterTestForm(forms.ModelForm):
+    class Meta:
+        model = CharacterTest
+        fields = '__all__'
+        # widgets = {
+        #     'class_name': forms.Select(choices=['yes', 'no', 'maybe'])
+        # }

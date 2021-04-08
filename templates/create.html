@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
+
+<a href='/'>Back to Home</a>
+<form action='' method='post'>
+    {% csrf_token %}
+    <h1>New Character</h1>
+    <div class="form-group" id='character-name'>
+        <h3>Character Name:</h3>
+        <input
+            id="character-name"
+            type="text"
+            name="name"
+            placeholder="What should we call you?"
+        />
+    </div>
+    <div class="form-group" id='class-name'>
+        <h3>Class:</h3>
+        {% for class in classes %}
+        <input type='radio' name="class_name" id="{{ class.name }}" value="{{ class.name }}" />
+        <label for="{{ class.name }}">{{ class.name }}</label>
+        {% endfor %}
+    </div>
+    <div class="form-group" id='race'>
+        <h3>Race:</h3>
+        {% for race in races %}
+        <input type='radio' name='race' id="{{ race.name }}" value = "{{ race.name }}" />
+        <label for="{{ race.name }}">{{ race.name }}</label>
+        {% endfor %}
+    </div>
+    <br />
+    <input type='submit' value='Make Selections' />
+    <input type='reset' value='Clear Selections' />
+</form>
+{% endblock %}
