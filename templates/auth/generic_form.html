@@ -1,0 +1,15 @@
+{% extends '../index.html' %}
+{% block content %}
+<form method="post" action=''>
+<h3>{{ header }}</h3>
+{% csrf_token %}
+{{ form.as_p }}
+{% for error in errors %}
+<p style='color: red'>{{error}}</p>
+{% endfor %}
+<input type='submit' class='button' value='{{header}}'/>
+{% if 'login' in request.path %}
+<p>New User? <a href='/users/register/'>Create an account</a>!</p>
+{% endif %}
+</form>
+{% endblock %}
