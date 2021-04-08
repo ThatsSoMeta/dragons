@@ -73,21 +73,3 @@ class DragonUser(AbstractUser):
         if self.username:
             return self.username
         return self.email
-
-
-class CharacterTest(models.Model):
-    name = models.CharField(
-        max_length=20,
-        null=True,
-        blank=True
-    )
-    class_name = models.CharField(
-        max_length=20,
-        null=True,
-        blank=True
-    )
-    race = models.CharField(
-        max_length=20,
-        null=True,
-        blank=True
-    )

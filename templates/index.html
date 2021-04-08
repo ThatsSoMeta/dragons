@@ -11,7 +11,11 @@
             />
         </div>
         <div id='header-auth'>
+            {% if request.user.username %}
             <h3>Welcome, {{ request.user.username }}</h3>
+            {% else %}
+            <h3>Welcome, {{ request.user.email }}</h3>
+            {% endif %}
             <div id='link-list'>
                 <a href='/users/logout/'>Log Out</a>
                 <a href='/users/profile/'>Account</a>

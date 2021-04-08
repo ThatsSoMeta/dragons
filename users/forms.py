@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import DragonUser, CharacterTest
+from .models import DragonUser
+from characters.models import CharacterSheet
 
 
 class CreateUserForm(UserCreationForm):
@@ -24,8 +25,9 @@ class EditProfileForm(forms.Form):
 
 class CharacterTestForm(forms.ModelForm):
     class Meta:
-        model = CharacterTest
-        fields = '__all__'
-        # widgets = {
-        #     'class_name': forms.Select(choices=['yes', 'no', 'maybe'])
-        # }
+        model = CharacterSheet
+        fields = "__all__"
+        widgets = {
+            'alignment': forms.RadioSelect(),
+            'class_name': forms.RadioSelect(),
+        }

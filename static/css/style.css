@@ -1,6 +1,7 @@
 :root {
-    background-color: lightcyan;
+    background-color: cyan;
     padding: 10px;
+    box-sizing: border-box;
 }
 
 header {
@@ -23,13 +24,31 @@ header {
     margin: 0;
 }
 
-#header-profile-photo {
-    background-color: white;
+#header-photo-div {
+    height: 5rem;
+    width: 5rem;
     border-radius: 50%;
     border: 3px solid black;
-    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+#header-profile-photo {
+   max-width: 100%;
+   max-height: 100%;
+   border-radius: 50%;
 }
 
 form {
-    background-color: rgba(255, 255, 255, .5)
+    background-color: gray;
+    padding: 5px;
+    text-align: center;
+}
+
+.form-group {
+    background-color: white;
+    padding: 5px;
+    margin: 5px;
 }
