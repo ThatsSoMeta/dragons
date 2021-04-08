@@ -15,7 +15,7 @@ class CharacterSheet(models.Model):
     armorclass = models.IntegerField()
     speed = models.IntegerField()
     hp = models.IntegerField()
-    temp_hp = models.IntegerField()
+    temp_hp = models.IntegerField(default=0)
     feats_traits = models.CharField(max_length=255)
     equipment = models.CharField(max_length=255)
     languages = models.CharField(max_length=255)
