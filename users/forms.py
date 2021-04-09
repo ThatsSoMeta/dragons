@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import DragonUser
-from characters.models import CharacterSheet
 
 
 class CreateUserForm(UserCreationForm):
@@ -21,13 +20,3 @@ class LoginForm(forms.Form):
 class EditProfileForm(forms.Form):
     username = forms.CharField(max_length=50, required=False)
     photo_url = forms.URLField(required=False)
-
-
-class CharacterTestForm(forms.ModelForm):
-    class Meta:
-        model = CharacterSheet
-        fields = "__all__"
-        widgets = {
-            'alignment': forms.RadioSelect(),
-            'class_name': forms.RadioSelect(),
-        }

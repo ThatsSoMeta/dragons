@@ -4,13 +4,10 @@ from django.contrib.auth.decorators import login_required
 from .forms import (
     CreateUserForm,
     LoginForm,
-    EditProfileForm,
-    CharacterTestForm
+    EditProfileForm
 )
 from .models import DragonUser
 from django.views import View
-import requests
-
 # Create your views here.
 
 
@@ -160,50 +157,3 @@ def homepage_view(request):
     if request.user.is_authenticated:
         return render(request, 'homepage.html')
     return render(request, 'landing.html')
-
-
-# testing here to move into character app
-
-
-DND_API_URL = 'https://www.dnd5eapi.co/api/'
-
-
-class NewCharacterView(View):
-    form = CharacterTestForm()
-    class_response = requests.get(DND_API_URL + 'classes/')
-    class_data = class_response.json()['results']
-
-    race_response = requests.get(DND_API_URL + 'races/')
-    race_data = race_response.json()['results']
-
-    test_char = {}
-
-    def get(self, request):
-        return render(
-            request,
-            'create.html',
-            {
-                'form': self.form,
-                'classes': self.class_data,
-                'races': self.race_data,
-                'character': self.test_char,
-            }
-        )
-
-    def post(self, request):
-        form = CharacterTestForm(request.POST)
-        data = request.POST.items()
-        for field, data in data:
-            print(field)
-            print(data)
-            print()
-        return render(
-            request,
-            'create.html',
-            {
-                'form': form,
-                'classes': self.class_data,
-                'races': self.race_data,
-                'character': request.POST,
-            }
-        )

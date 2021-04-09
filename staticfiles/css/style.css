@@ -62,35 +62,6 @@ td, td >div {
     cursor: pointer;
 }
 
-
-#good {
-    background-color: rgba(0, 0, 255, .3);
-}
-
-#neutral {
-    background-color: rgba(255, 255, 0, .3)
-}
-
-#evil {
-    background-color: rgba(255, 0, 0, .3)
-}
-
-#alignment-options {
-    font-weight: bold;
-    background-color: white;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: space-evenly;
-    margin: 20px;
-}
-
-.alignment-choice {
-    border: 1px solid black;
-    flex-basis: 26%;
-    flex-grow: 1;
-    margin: 5px;
-}
-
 button, .button {
     margin: 10px;
     border-radius: 10px;

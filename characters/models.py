@@ -5,36 +5,86 @@ from users.models import DragonUser
 # Create your models here.
 # Trying to find a more DRY way to do the stats
 
-CLASS_OPTIONS = [
-    ('barbarian', 'Barbarian'),
-    ('bard', 'Bard'),
-    ('cleric', 'Cleric'),
-    ('druid', 'Druid'),
-    ('fighter', 'Fighter'),
-    ('monk', 'Monk'),
-    ('paladin', 'Paladin'),
-    ('ranger', 'Ranger'),
-    ('rogue', 'Rogue'),
-    ('sorcerer', 'Sorcerer'),
-    ('warlock', 'Warlock'),
-    ('wizard', 'Wizard'),
-    ('artificer', 'Artificer'),
-]
-
-ALIGNMENT_OPTIONS = [
-    ('LG', 'lawful-good'),
-    ('NG', 'neutral-good'),
-    ('CG', 'chaotic-good'),
-    ('LN', 'lawful-neutral'),
-    ('NN', 'neutral-neutral'),
-    ('CN', 'chaotic-neutral'),
-    ('LE', 'lawful-evil'),
-    ('NE', 'neutral-evil'),
-    ('CE', 'chaotic-evil'),
-]
-
 
 class CharacterSheet(models.Model):
+
+    # CLASSES
+    BARBARIAN = 'barbarian'
+    BARD = 'bard'
+    CLERIC = 'cleric'
+    DRUID = 'druid'
+    FIGHTER = 'fighter'
+    MONK = 'monk'
+    PALADIN = 'paladin'
+    RANGER = 'ranger'
+    ROGUE = 'rogue'
+    SORCERER = 'sorcerer'
+    WARLOCK = 'warlock'
+    WIZARD = 'wizard'
+    ARTIFICER = 'artificer'
+
+    CLASS_OPTIONS = [
+        (BARBARIAN, BARBARIAN),
+        (BARD, BARD),
+        (CLERIC, CLERIC),
+        (DRUID, DRUID),
+        (FIGHTER, FIGHTER),
+        (MONK, MONK),
+        (PALADIN, PALADIN),
+        (RANGER, RANGER),
+        (ROGUE, ROGUE),
+        (SORCERER, SORCERER),
+        (WARLOCK, WARLOCK),
+        (WIZARD, WIZARD),
+        (ARTIFICER, ARTIFICER),
+    ]
+
+    # RACES
+    DRAGON = 'dragonborn'
+    DWARF = 'dwarf'
+    ELF = 'elf'
+    GNOME = 'gnome'
+    HALFELF = 'half-elf'
+    HALFORC = 'half-orc'
+    HALFLING = 'halfling'
+    HUMAN = 'human'
+    TIEFLING = 'tiefling'
+
+    RACE_OPTIONS = [
+        (DRAGON, DRAGON),
+        (DWARF, DWARF),
+        (ELF, ELF),
+        (GNOME, GNOME),
+        (HALFELF, HALFELF),
+        (HALFORC, HALFORC),
+        (HALFLING, HALFLING),
+        (HUMAN, HUMAN),
+        (TIEFLING, TIEFLING)
+    ]
+
+    # ALIGNMENTS
+    LG = 'lawful-good'
+    NG = 'neutral-good'
+    CG = 'chaotic-good'
+    LN = 'lawful-neutral'
+    NN = 'neutral'
+    CN = 'chaotic-neutral'
+    LE = 'lawful-evil'
+    NE = 'neutral-evil'
+    CE = 'chaotic-evil'
+
+    ALIGNMENT_OPTIONS = [
+        (LG, LG),
+        (NG, NG),
+        (CG, CG),
+        (LN, LN),
+        (NN, NN),
+        (CN, CN),
+        (LE, LE),
+        (NE, NE),
+        (CE, CE)
+    ]
+
     name = models.CharField(max_length=50)
     player = models.ForeignKey(DragonUser, on_delete=models.CASCADE)
     level = models.IntegerField(default=1)
@@ -43,7 +93,11 @@ class CharacterSheet(models.Model):
         choices=CLASS_OPTIONS,
         default=None,
     )
-    race = models.CharField(max_length=20)
+    race = models.CharField(
+        max_length=20,
+        choices=RACE_OPTIONS,
+        default=None,
+    )
     alignment = models.CharField(
         max_length=25,
         choices=ALIGNMENT_OPTIONS,
