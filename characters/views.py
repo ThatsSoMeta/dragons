@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import CharacterForm
+from .models import CharacterSheet
 from django.views import View
 
 
@@ -23,6 +24,7 @@ class NewCharacterView(View):
         print(form.data)
         if form.is_valid():
             data = form.cleaned_data
+            form.save()
             print('Data:', data)
         return render(
             request,
@@ -31,3 +33,12 @@ class NewCharacterView(View):
                 'form': form,
             }
         )
+
+
+class CharacterDetailView(View):
+    def get(self, request):
+        template_name = 'character_detail.html'
+        char = CharacterSheet.objects.all()
+        print(char)
+        context = {'char': char}
+        return render(request, template_name, context)
