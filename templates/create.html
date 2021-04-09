@@ -2,18 +2,6 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/new-character.css' %}" type="text/css" />
-<script>
-    let new_char = {}
-    let name_value = document.getElementById('id_name')
-    function update_character(key, value, character) {
-        character[key] = value
-        console.log(character)
-    }
-    function update_name() {
-        console.log('name_value')
-        console.log(name_value)
-    }
-</script>
 <a href='/'><button>Back to Home</button></a>
 <form action='' method='post'>
     {% csrf_token %}
@@ -56,6 +44,7 @@
         </div>
     </div>
     <br />
+    {% comment %} {{form.as_p}} {% endcomment %}
     <input class='button' type='submit' value='Make Selections' />
     <input class='button' type='reset' value='Clear Selections' />
 </form>

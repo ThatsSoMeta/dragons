@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .forms import CharacterForm
 from django.views import View
+from .forms import CharacterForm
+from .models import Character
 
 
 # Create your views here.
@@ -20,10 +21,17 @@ class NewCharacterView(View):
 
     def post(self, request):
         form = CharacterForm(request.POST)
-        print(form.data)
         if form.is_valid():
             data = form.cleaned_data
-            print('Data:', data)
+            print(data)
+            new_char = Character.objects.create(
+                name=data['name'],
+                player=request.user,
+                class_name=data['class_name'],
+                race=data['race'],
+                alignment=data['alignment'],
+            )
+            print(new_char)
         return render(
             request,
             'create.html',

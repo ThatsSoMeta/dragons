@@ -6,7 +6,7 @@ from users.models import DragonUser
 # Trying to find a more DRY way to do the stats
 
 
-class CharacterSheet(models.Model):
+class Character(models.Model):
 
     # CLASSES
     BARBARIAN = 'barbarian'
