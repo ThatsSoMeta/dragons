@@ -22,18 +22,10 @@ def roll_for_ability_scores(num_of_abilities=6):
     return score_options
 
 
-def determine_modifier(ability_score):
+def get_modifier(ability_score):
     return ((ability_score - 10) // 2)
 
 
-print('Testing score generator and modifiers:')
-my_scores = roll_for_ability_scores()
-print('Ability Scores:', my_scores)
-for score in my_scores:
-    print('Score:', score)
-    print('Modifier:', determine_modifier(score))
-    print()
-
-
-print('1d20')
-print(roll_dice(1, 20))
+def get_attrs(character):
+    print('Getting attributes...')
+    print(character.__dict__)

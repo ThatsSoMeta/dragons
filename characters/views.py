@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from .forms import CharacterForm
 from .models import Character
+from .helpers import get_attrs
 
 
 # Create your views here.
@@ -23,7 +24,6 @@ class NewCharacterView(View):
         form = CharacterForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            print(data)
             new_char = Character.objects.create(
                 name=data['name'],
                 player=request.user,
@@ -31,7 +31,8 @@ class NewCharacterView(View):
                 race=data['race'],
                 alignment=data['alignment'],
             )
-            print(new_char)
+            print('Running get_attrs(new_char):')
+            get_attrs(new_char)
         return render(
             request,
             'create.html',

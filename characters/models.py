@@ -1,9 +1,46 @@
 from django.db import models
-# from django import forms
 from users.models import DragonUser
 
 # Create your models here.
 # Trying to find a more DRY way to do the stats
+
+
+class Score(models.Model):
+    base_score = models.IntegerField(default=0)
+    modifier = models.IntegerField(default=0)
+
+
+class AbilityScores(models.Model):
+    strength = models.ForeignKey(
+        'Score',
+        on_delete=models.DO_NOTHING,
+        related_name='strength'
+    )
+    dexterity = models.ForeignKey(
+        'Score',
+        on_delete=models.DO_NOTHING,
+        related_name='dexterity'
+    )
+    constitution = models.ForeignKey(
+        'Score',
+        on_delete=models.DO_NOTHING,
+        related_name='constitution'
+    )
+    intelligence = models.ForeignKey(
+        'Score',
+        on_delete=models.DO_NOTHING,
+        related_name='intelligence'
+    )
+    wisdom = models.ForeignKey(
+        'Score',
+        on_delete=models.DO_NOTHING,
+        related_name='wisdom'
+    )
+    charisma = models.ForeignKey(
+        'Score',
+        on_delete=models.DO_NOTHING,
+        related_name='charisma'
+    )
 
 
 class Character(models.Model):
@@ -112,6 +149,12 @@ class Character(models.Model):
     feats_traits = models.CharField(max_length=255, blank=True, null=True)
     equipment = models.CharField(max_length=255, blank=True, null=True)
     languages = models.CharField(max_length=255, blank=True, null=True)
+
+    def __repr__(self):
+        return self.__dict__
+
+    def __str__(self):
+        return f"{self.name}: {self.race.title()} {self.class_name.title()}"
 
 
 class SpellSheet(models.Model):
