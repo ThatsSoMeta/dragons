@@ -11,14 +11,19 @@
 
     <ul>
         {% for c in char %}
-      <li>{{ c.name }}</li>
-      <li>{{ c.race }}</li>
-      <li>{{ c.class_name }}</li>
-      <li>{{ c.alignment }}</li>
-      <li>{{ c.background }}</li>
-      <li>{{ c.speed }}</li>
-      <li>{{ c.proficiency_bonus }}</li>
-      <li>{{ c.strength }}</li>
+      <li>Name: {{ c.name }}</li>
+      <li>Race: {{ c.race }}</li>
+      <li>Class: {{ c.class_name }}</li>
+      <li>Alignment: {{ c.alignment }}</li>
+      <li>Background: {{ c.background }}</li>
+      <li>Speed: {{ c.speed }}</li>
+      <li>proficiency bonus: {{ c.proficiency_bonus }}</li>
+      <li>STR: {{ c.strength }}</li>
+      <li>DEX: {{ c.dexterity }}</li>
+      <li>CON: {{ c.constitution }}</li>
+      <li>INT: {{ c.intelligence }}</li>
+      <li>WIS: {{ c.wisdom }}</li>
+      <li>CHA: {{ c.charisma }}</li>
       -----------------------------------
         {% endfor %}
     </ul>
