@@ -40,3 +40,12 @@ class NewCharacterView(View):
                 'form': form,
             }
         )
+
+
+class CharacterDetailView(View):
+    def get(self, request):
+        template_name = 'char_view.html'
+        char = Character.objects.all()
+        context = {'char': char}
+        return render(request, template_name, context)
+

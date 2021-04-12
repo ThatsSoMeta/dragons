@@ -122,6 +122,40 @@ class Character(models.Model):
         (CE, CE)
     ]
 
+    # BACKGROUNDS
+    Acolyte = 'Acolyte'
+    Criminal = 'Criminal'
+    Folk_Hero = 'Folk Hero'
+    Noble = 'Nobel'
+    Sage = 'Sage'
+    Soldier = 'Soldier'
+
+    BACKGROUND_OPTIONS = [
+        (Acolyte, Acolyte),
+        (Criminal, Criminal),
+        (Folk_Hero, Folk_Hero),
+        (Noble, Noble),
+        (Sage, Sage),
+        (Soldier, Soldier)
+    ]
+
+    # ABILITY SCORES
+    fifteen = '15'
+    fourteen = '14'
+    thirteen = '13'
+    twelve = '12'
+    ten = '10'
+    eight = '8'
+
+    ABILITY_SCORES = [
+        (fifteen, fifteen),
+        (fourteen, fourteen),
+        (thirteen, thirteen),
+        (twelve, twelve),
+        (ten, ten),
+        (eight, eight)
+    ]
+
     name = models.CharField(max_length=50)
     player = models.ForeignKey(DragonUser, on_delete=models.CASCADE)
     level = models.IntegerField(default=1)
@@ -140,15 +174,43 @@ class Character(models.Model):
         choices=ALIGNMENT_OPTIONS,
         default=None,
     )
-    background = models.CharField(max_length=25, blank=True, null=True)
-    proficiency_bonus = models.IntegerField(default=0)
+    background = models.CharField(
+        max_length=25,
+        choices=BACKGROUND_OPTIONS,
+        default=None,
+    )
+    proficiency_bonus = models.IntegerField(default=2)
     armorclass = models.IntegerField(default=0)
-    speed = models.IntegerField(default=0)
+    speed = models.IntegerField(default=30)
     hp = models.IntegerField(default=0)
     temp_hp = models.IntegerField(default=0)
     feats_traits = models.CharField(max_length=255, blank=True, null=True)
     equipment = models.CharField(max_length=255, blank=True, null=True)
     languages = models.CharField(max_length=255, blank=True, null=True)
+    strength = models.IntegerField(
+        choices=ABILITY_SCORES,
+        default=None
+    )
+    dexterity = models.IntegerField(
+        choices=ABILITY_SCORES,
+        default=None
+    )
+    constitution = models.IntegerField(
+        choices=ABILITY_SCORES,
+        default=None
+    )
+    intelligence = models.IntegerField(
+        choices=ABILITY_SCORES,
+        default=None
+    )
+    wisdom = models.IntegerField(
+        choices=ABILITY_SCORES,
+        default=None
+    )
+    charisma = models.IntegerField(
+        choices=ABILITY_SCORES,
+        default=None
+    )
 
     def __repr__(self):
         return self.__dict__
