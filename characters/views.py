@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.views import View
 from .forms import CharacterForm
 from .models import Character
@@ -30,16 +30,17 @@ class NewCharacterView(View):
                 class_name=data['class_name'],
                 race=data['race'],
                 alignment=data['alignment'],
+                background=data['background'],
+                strength=data['strength'],
+                dexterity=data['dexterity'],
+                constitution=data['constitution'],
+                intelligence=data['intelligence'],
+                wisdom=data['wisdom'],
+                charisma=data['charisma'],
             )
             print('Running get_attrs(new_char):')
             get_attrs(new_char)
-        return render(
-            request,
-            'create.html',
-            {
-                'form': form,
-            }
-        )
+        return redirect(reverse('view_characters'))
 
 
 class CharacterDetailView(View):

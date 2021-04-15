@@ -187,27 +187,33 @@ class Character(models.Model):
     feats_traits = models.CharField(max_length=255, blank=True, null=True)
     equipment = models.CharField(max_length=255, blank=True, null=True)
     languages = models.CharField(max_length=255, blank=True, null=True)
-    strength = models.IntegerField(
+    strength = models.CharField(
+        max_length=2,
         choices=ABILITY_SCORES,
         default=None
     )
-    dexterity = models.IntegerField(
+    dexterity = models.CharField(
+        max_length=2,
         choices=ABILITY_SCORES,
         default=None
     )
-    constitution = models.IntegerField(
+    constitution = models.CharField(
+        max_length=2,
         choices=ABILITY_SCORES,
         default=None
     )
-    intelligence = models.IntegerField(
+    intelligence = models.CharField(
+        max_length=2,
         choices=ABILITY_SCORES,
         default=None
     )
-    wisdom = models.IntegerField(
+    wisdom = models.CharField(
+        max_length=2,
         choices=ABILITY_SCORES,
         default=None
     )
-    charisma = models.IntegerField(
+    charisma = models.CharField(
+        max_length=2,
         choices=ABILITY_SCORES,
         default=None
     )
