@@ -20,7 +20,11 @@ from game import views as gamesviews
 
 urlpatterns = [
     path('users/', include('users.urls')),
+<<<<<<< HEAD
     path('games/', include('game.urls')),
+=======
+    path('characters/', include('characters.urls')),
+>>>>>>> dev-drew-create
     path('', userviews.homepage_view, name='homepage'),
     path('admin/', admin.site.urls),
 ]

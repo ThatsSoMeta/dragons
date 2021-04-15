@@ -1,3 +1,69 @@
 :root {
     background-color: lightcyan;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+}
+
+#header-user-info {
+    display: flex;
+    align-items: center;
+}
+
+#header-auth {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+#header-auth >h3,
+#header-auth >a {
+    margin: 0;
+}
+
+#header-photo-div {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+#header-profile-photo {
+   max-width: 100%;
+   max-height: 100%;
+   border-radius: 50%;
+}
+
+form {
+    background-color: gray;
+    padding: 5px;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+.form-group {
+    background-color: white;
+    padding: 5px;
+    margin: 10px auto;
+    border-radius: 20px;
+    max-width: 80%;
+}
+
+td, td >div {
+    cursor: pointer;
+}
+
+button, .button {
+    margin: 10px;
+    border-radius: 10px;
+    padding: 5px;
 }

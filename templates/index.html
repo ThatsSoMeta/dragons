@@ -2,29 +2,42 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
 <header>
     {% if request.user.is_authenticated %}
-    <div>
-        <h3>Welcome, {{ request.user.username }}</h3>
-        <img
-            id='header-profile-photo'
-            src="{{ request.user.photo_url }}"
-            alt="{{ request.user.username }}'s Photo"
-            width='75'
-        />
+    <div id='header-user-info'>
+        <div id='header-photo-div'>
+            <img
+                id='header-profile-photo'
+                src="{{ request.user.photo_url }}"
+                alt="{{ request.user.username }}'s Photo"
+            />
+        </div>
+        <div id='header-auth'>
+            {% if request.user.username %}
+            <h3>Welcome, {{ request.user.username }}</h3>
+            {% else %}
+            <h3>Welcome, {{ request.user.email }}</h3>
+            {% endif %}
+            <div id='link-list'>
+                <a href='/users/logout/'>Log Out</a>
+                <a href='/users/profile/'>Account</a>
+            </div>
+        </div>
     </div>
-    <a href='/users/logout/'>Log Out</a>
     {% else %}
-    <div>
-        <h3>You are logged out</h3>
-        <img
-            id='header-profile-photo'
-            src="https://cdn3.iconfinder.com/data/icons/galaxy-open-line-gradient-i/200/contacts-512.png"
-            alt="{{ request.user.username }}'s Photo"
-            width='75'
-        />
+    <div id='header-user-info'>
+        <div id='header-photo-div'>
+            <img
+                id='header-profile-photo'
+                src="https://cdn3.iconfinder.com/data/icons/galaxy-open-line-gradient-i/200/contacts-512.png"
+                alt="{{ request.user.username }}'s Photo"
+            />
+        </div>
+        <div id='header-auth'>
+            <h3>You are logged out</h3>
+            {% if 'login' not in request.path %}
+            <a href='/users/login'>Login</a>
+            {% endif %}
+        </div>
     </div>
-    {% if 'login' not in request.path %}
-    <a href='/users/login'>Login</a>
-    {% endif %}
     {% endif %}
 </header>
 

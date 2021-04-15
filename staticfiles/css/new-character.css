@@ -1,0 +1,43 @@
+#good {
+    background-color: rgba(0, 0, 255, .3);
+}
+
+#neutral {
+    background-color: rgba(255, 255, 0, .3)
+}
+
+#evil {
+    background-color: rgba(255, 0, 0, .3)
+}
+
+.alignment-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: space-evenly;
+    margin: 20px;
+}
+
+.alignment-choice {
+    flex-basis: 26%;
+    flex-grow: 1;
+    margin: 5px;
+}
+
+.class-options,
+.race-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.class-choice,
+.race-choice {
+    flex-basis: 15%;
+    margin: 5px;
+}
+
+/* .form-alignment {
+    background-image: linear-gradient(to right, rgba(0, 128, 0, .5), rgba(255, 255, 0, .5), rgba(255, 0, 0, .5))
+} */

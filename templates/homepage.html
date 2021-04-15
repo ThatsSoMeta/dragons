@@ -7,7 +7,13 @@
     <a href='/games/new'><button>Start New Game!</button></a>
 </div>
 <div id='characters'>
-    <p>Characters coming soon!</p>
-    <button>Build New Character!</button>
+    <h3>Your Characters:</h3>
+    {% for character in characters %}
+    <div class='user-character'>
+        <h5>{{ character.name }}</h5>
+        <p>Class: {{ character.class_name }}</p>
+    </div>
+    {% endfor %}
+    <a href='/characters/create/'><button>Build New Character!</button></a>
 </div>
 {% endblock %}
