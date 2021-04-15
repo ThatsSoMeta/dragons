@@ -5,12 +5,13 @@
 
 <h3>{{game.gameName}}</h3>
 {% if user == game.gameMaster %}
-    <h5>Add game note</h5>
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-    <input type="submit" value="Submit">
-    </form>
+<h5>Add game note</h5>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+<input type="submit" value="Submit">
+</form>
+<h5>Game Notes:</h5>
 <ul>
 {% for note in notes %}
 <li>
@@ -20,4 +21,7 @@
 {% endfor %}
 </ul>
 {% endif %}
+
+<h3>Game Flow</h3>
+<p>Coming soon!</p>
 {% endblock %}
