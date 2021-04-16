@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block content %}
+<h3>Games for {{user}}</h3>
+<h5>You are a game master in these games</h5>
+{% for game in master %}
+<a href="/games/detail/{{game.gameID}}">{{game.gameName}}</a>
+{% endfor %}
+<h5>You are a character in these games</h5>
+{% for game in player %}
+<a href="/games/detail/{{game.gameID}}">{{game.gameName}}</a>
+{% endfor %}
+{% endblock %}
