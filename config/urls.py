@@ -16,15 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users import views as userviews
-from game import views as gamesviews
+# from game import views as gamesviews
 
 urlpatterns = [
     path('users/', include('users.urls')),
-<<<<<<< HEAD
     path('games/', include('game.urls')),
-=======
     path('characters/', include('characters.urls')),
->>>>>>> dev-drew-create
     path('', userviews.homepage_view, name='homepage'),
     path('admin/', admin.site.urls),
 ]

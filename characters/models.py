@@ -1,5 +1,5 @@
 from django.db import models
-# from django import forms
+# from game.models import Game
 from users.models import DragonUser
 
 # Create your models here.
@@ -87,6 +87,8 @@ class Character(models.Model):
 
     name = models.CharField(max_length=50)
     player = models.ForeignKey(DragonUser, on_delete=models.CASCADE)
+    gameID = models.CharField(max_length=250, null=True, blank=True)
+    is_active = models.BooleanField(default=False)
     level = models.IntegerField(default=1)
     class_name = models.CharField(
         max_length=25,

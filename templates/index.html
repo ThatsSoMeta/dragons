@@ -4,11 +4,11 @@
     {% if request.user.is_authenticated %}
     <div id='header-user-info'>
         <div id='header-photo-div'>
-            <img
+            <a href='/' title='Back to Home'><img
                 id='header-profile-photo'
                 src="{{ request.user.photo_url }}"
                 alt="{{ request.user.username }}'s Photo"
-            />
+            /></a>
         </div>
         <div id='header-auth'>
             {% if request.user.username %}

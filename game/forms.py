@@ -34,6 +34,5 @@ class PlayerActionForm(forms.ModelForm):
         fields = [
             'characters',
             'difficulty',
-            'result'
         ]
 

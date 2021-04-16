@@ -1,27 +1,81 @@
 {% extends 'index.html' %}
 {% block content %}
-<h3>This is the Game view</h3>
-
-
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/game.css' %}" type="text/css" />
 <h3>{{game.gameName}}</h3>
+<div id='game-flow'>
+    <div id='game-inputs'>
+        {% if user == game.gameMaster %}
+        <form action='' method="post">
+        <h3>Narration</h3>
+        {% csrf_token %}
+        {{ narrative_form.as_p }}
+        <input type='submit' value='Add Narration' />
+        </form>
+        <div id='action-requests'>
+            <h3>Action Requests:</h3>
+            {% if action_requests.count == 0 %}
+            <p>No current requests</p>
+            {% else %}
+            {% for req in action_requests %}
+            <div id='request-object'>
+                <h5>{{ req.character.name }}'s request:</h5>
+                <p>{{ req.text }}</p>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% elif character == None %}
+        <p>Please select a character for the game:</p>
+        <div id='game-character-selector'>
+            {% for char in player_characters.all %}
+            <div id='game-character-option'>
+                <h5>{{ char.name }}</h5>
+                <p>{{ char.race.title }} {{ char.class_name.title }}</p>
+                <a href='choose/{{ char.id }}/'><button>
+                Select {{ char.name }}
+                </button><a>
+            </div>
+            {% endfor %}
+            <div id='game-character-option'>
+                <h5>New Character</h5>
+                <p>Create a new character for this game</p>
+                <a href='/characters/create/'><button>New Character</button></a>
+            </div>
+        </div>
+        {% else %}
+        <form method="post" action="">
+        <h3>Action Form</h3>
+        {% csrf_token %}
+        {{ action_request_form.as_p }}
+        <p>Your character is: {{ character.name }}</p>
+        <input type='submit' value='Make Request' />
+        </form>
+        {% endif %}
+    </div>
+    <h3>Game Flow</h3>
+    <div id='game-narration'>
+        {% for item in narrative_items %}
+        <p>{{ item.text }}</p>
+        {% endfor %}
+    </div>
+</div>
 {% if user == game.gameMaster %}
-<h5>Add game note</h5>
-<form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-<input type="submit" value="Submit">
-</form>
 <h5>Game Notes:</h5>
-<ul>
-{% for note in notes %}
-<li>
-    {{note.body}}
-    {{note.createdAt}}
-</li>
-{% endfor %}
-</ul>
+<div id='game-notes' style='background-color: white;'>
+    <form method="post">
+        {% csrf_token %}
+        {{note_form.as_p}}
+    <input type="submit" value="Add Note">
+    </form>
+    <ul>
+    {% for note in notes %}
+    <li>
+        {{note.body}}
+        {{note.createdAt}}
+    </li>
+    {% endfor %}
+    </ul>
+</div>
 {% endif %}
-
-<h3>Game Flow</h3>
-<p>Coming soon!</p>
 {% endblock %}

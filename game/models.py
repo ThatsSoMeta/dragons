@@ -1,7 +1,8 @@
 from django.db import models
 import uuid
 from users.models import DragonUser
-from characters.helpers import roll_dice
+# from characters.helpers import roll_dice
+from characters.models import Character
 
 # Create your models here.
 
@@ -18,6 +19,12 @@ class Game(models.Model):
         DragonUser,
         related_name='players',
         symmetrical=False,
+        blank=True
+    )
+    gameCharacters = models.ManyToManyField(
+        Character,
+        related_name='pawns',
+        symmetrical=True,
         blank=True
     )
 
@@ -37,7 +44,7 @@ class GameNotes(models.Model):
 class ActionRequest(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     player = models.ForeignKey(DragonUser, on_delete=models.CASCADE)
-    character = models.ForeignKey("Character", on_delete=models.CASCADE)
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
     text = models.CharField(max_length=250)
 
 
@@ -62,10 +69,10 @@ class PlayerAction(models.Model):
     players = models.ManyToManyField(
         DragonUser,
         symmetrical=False,
-        related_name='responsible-parties'
+        related_name='responsible'
     )
     characters = models.ManyToManyField(
-        "Character",
+        Character,
         symmetrical=False,
         related_name='characters'
     )
@@ -78,10 +85,11 @@ class PlayerAction(models.Model):
     attempt = models.CharField(max_length=250)
     # The actual result based on roll
     success = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
 
-    def ability_check(self, num_of_dice=1, sides=20):
-        best_roll = max(roll_dice(num_of_dice, sides))
-        print(best_roll)
+    # def ability_check(self, num_of_dice=1, sides=20):
+    #     best_roll = max(roll_dice(num_of_dice, sides))
+    #     print(best_roll)
 
 
 class Narrative(models.Model):

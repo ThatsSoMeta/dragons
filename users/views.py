@@ -9,6 +9,7 @@ from .forms import (
 from .models import DragonUser
 from django.views import View
 from characters.models import Character
+from game.models import Game
 # Create your views here.
 
 
@@ -157,11 +158,13 @@ def logout_view(request):
 def homepage_view(request):
     if request.user.is_authenticated:
         characters = Character.objects.filter(player=request.user)
+        games = Game.objects.filter(gamePlayers=request.user)
         return render(
             request,
             'homepage.html',
             {
-                'characters': characters
+                'characters': characters,
+                'games': games
             }
         )
     return render(request, 'landing.html')

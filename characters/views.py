@@ -37,5 +37,6 @@ class NewCharacterView(View):
             'create.html',
             {
                 'form': form,
+                'message': 'Your character has been saved.'
             }
         )
