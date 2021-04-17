@@ -46,9 +46,80 @@
             {% endfor %}
         </div>
     </div>
+    <div class='form-group form-background' id='form-background'>
+        <h3 id='background'>{{ form.background.label }}:</h3>
+        <div class='background-options'>
+            {% for item in form.background %}
+            <div class='background-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    <div class='form-group form-strength' id='form-strength'>
+        <h3 id='strength'>{{ form.strength.label }}:</h3>
+        <div class='strength-options'>
+            {% for item in form.strength %}
+            <div class='strength-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+    </div>
+    <div class='form-group form-dexterity' id='form-dexterity'>
+        <h3 id='dexterity'>{{ form.dexterity.label }}:</h3>
+        <div class='dexterity-options'>
+            {% for item in form.dexterity %}
+            <div class='dexterity-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+    </div>
+    <div class='form-group form-constitution' id='form-constitution'>
+        <h3 id='constitution'>{{ form.constitution.label }}:</h3>
+        <div class='constitution-options'>
+            {% for item in form.constitution %}
+            <div class='constitution-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+    </div>
+    <div class='form-group form-intelligence' id='form-intelligence'>
+        <h3 id='intelligence'>{{ form.intelligence.label }}:</h3>
+        <div class='intelligence-options'>
+            {% for item in form.intelligence %}
+            <div class='intelligence-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+    </div>
+    <div class='form-group form-wisdom' id='form-wisdom'>
+        <h3 id='wisdom'>{{ form.wisdom.label }}:</h3>
+        <div class='wisdom-options'>
+            {% for item in form.wisdom %}
+            <div class='wisdom-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+    </div>
+    <div class='form-group form-charisma' id='form-charisma'>
+        <h3 id='charisma'>{{ form.charisma.label }}:</h3>
+        <div class='charisma-options'>
+            {% for item in form.charisma %}
+            <div class='charisma-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+    </div>
+    </div>
     <br />
     {% comment %} {{form.as_p}} {% endcomment %}
-    <input class='button' type='submit' value='Make Selections' />
+   <input class='button' type='submit' value='Make Selections' /> 
     <input class='button' type='reset' value='Clear Selections' />
 </form>
 {% endblock %}

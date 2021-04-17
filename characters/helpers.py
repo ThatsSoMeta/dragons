@@ -22,5 +22,5 @@ def roll_for_ability_scores(num_of_abilities=6):
     return score_options
 
 
-def determine_modifier(ability_score):
+def get_modifier(ability_score):
     return ((ability_score - 10) // 2)
