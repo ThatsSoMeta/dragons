@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/new-character.css' %}" type="text/css" />
+<a href='/'><button>Back to Home</button></a>
+{% if message %}
+<h5>{{ message }}</h5>
+{% endif %}
+<form action='' method='post'>
+    {% csrf_token %}
+    <h1>New Character</h1>
+    <div class='form-group'>
+        <h3 id='name'>Character Name:</h3>
+        <p>{{ form.name }}</p>
+    </div>
+    <div class='form-group'>
+        <h3>Race:</h3>
+        <div class='race-options'>
+            {% for item in form.race %}
+            <div class='race-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class='form-group'>
+        <h3 id='class_name'>Class:</h3>
+        <div class='class-options'>
+            {% for item in form.class_name %}
+            <div class='class-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class='form-group form-alignment' id='form-alignment'>
+        <h3 id='alignment'>{{ form.alignment.label }}:</h3>
+        <div class='alignment-options'>
+            {% for item in form.alignment %}
+            <div class='alignment-choice'>
+                <p>{{ item.tag }}</p>
+                <p>{{ item.choice_label.title }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <br />
+    {% comment %} {{form.as_p}} {% endcomment %}
+    <input class='button' type='submit' value='Make Selections' />
+    <input class='button' type='reset' value='Clear Selections' />
+</form>
+{% endblock %}
