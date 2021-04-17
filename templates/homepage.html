@@ -1,12 +1,5 @@
 {% extends 'index.html' %}
 {% block content %}
-<<<<<<< HEAD
-
-<div class='homepage-section' id='games'>
-    <h3>Games:</h3>
-    <p>Active Games coming soon!</p>
-    <a href='/games/new'><button>Start New Game!</button></a>
-=======
 {% if message %}
 <h5>{{ message }}</h5>
 {% endif %}
@@ -16,24 +9,18 @@
     <a href='/games/detail/{{game.gameID}}/'><h5>{{ game.gameName }}</h5></a>
     {% endfor %}
     <a href='/games/new/'><button>Start New Game!</button></a>
->>>>>>> main
 </div>
 <div class='homepage-section' id='characters'>
     <a href="/characters/view/"><h3>Your Characters:</h3></a>
     {% for character in characters %}
     <div class='user-character'>
         <h5>{{ character.name }}</h5>
-<<<<<<< HEAD
-        <p><i>Level {{ character.level }}</i></p>
-        <p>{{ character.race.title }} {{ character.class_name.title }}</p>
-=======
         <p>{{ character.race.title }} {{ character.class_name.title }}</p>
         {% if character.gameID is not None %}
         <p>Active</p>
         {% else %}
         <p>Inactive</p>
         {% endif %}
->>>>>>> main
     </div>
     {% endfor %}
     <a href='/characters/create/'><button>Build New Character!</button></a>
