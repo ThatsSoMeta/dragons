@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.views import View
-from django.views.generic.edit import CreateView
+# from django.views.generic.edit import CreateView
 # from django.urls import reverse_lazy
 from .models import (
     Game,
@@ -111,7 +111,7 @@ class GameDetailView(View):
         return redirect('game_details', game_id=game_id)
 
 
-class NewGame(CreateView):
+class NewGame(View):
 
     def get(self, request):
         form = NewGameForm
