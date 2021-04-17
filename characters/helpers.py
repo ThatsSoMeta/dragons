@@ -24,8 +24,3 @@ def roll_for_ability_scores(num_of_abilities=6):
 
 def get_modifier(ability_score):
     return ((ability_score - 10) // 2)
-
-
-def get_attrs(character):
-    print('Getting attributes...')
-    print(character.__dict__)

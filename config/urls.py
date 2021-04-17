@@ -20,8 +20,8 @@ from users import views as userviews
 
 urlpatterns = [
     path('users/', include('users.urls')),
-    path('characters/', include('characters.urls')),
     path('games/', include('game.urls')),
+    path('characters/', include('characters.urls')),
     path('', userviews.homepage_view, name='homepage'),
     path('admin/', admin.site.urls),
 ]

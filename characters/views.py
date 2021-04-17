@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render
 from django.views import View
 from .forms import CharacterForm
 from .models import Character
-from .helpers import get_attrs
 
 
 # Create your views here.
@@ -38,9 +37,15 @@ class NewCharacterView(View):
                 wisdom=data['wisdom'],
                 charisma=data['charisma'],
             )
-            print('Running get_attrs(new_char):')
-            get_attrs(new_char)
-        return redirect(reverse('view_characters'))
+            print(new_char)
+        return render(
+            request,
+            'create.html',
+            {
+                'form': form,
+                'message': 'Your character has been saved.'
+            }
+        )
 
 
 class CharacterDetailView(View):
@@ -49,4 +54,3 @@ class CharacterDetailView(View):
         char = Character.objects.all()
         context = {'char': char}
         return render(request, template_name, context)
-
