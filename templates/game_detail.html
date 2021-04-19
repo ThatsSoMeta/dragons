@@ -19,8 +19,10 @@
             {% else %}
             {% for req in action_requests %}
             <div id='request-object'>
-                <h5>{{ req.character.name }}'s request:</h5>
-                <p>{{ req.text }}</p>
+                <h5>{{ req.player_character.name }}'s request:</h5>
+                <p>{{ req.action_text }}</p>
+                <a href='accept/{{ req.id }}/'><button>Accept</button></a>
+                <a href='reject/{{ req.id }}/'><button>Reject</button></a>
             </div>
             {% endfor %}
             {% endif %}

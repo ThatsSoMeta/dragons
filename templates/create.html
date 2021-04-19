@@ -15,9 +15,9 @@
     </div>
     <div class='form-group'>
         <h3>Race:</h3>
-        <div class='race-options'>
+        <div class='options'>
             {% for item in form.race %}
-            <div class='race-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
@@ -26,9 +26,9 @@
     </div>
     <div class='form-group'>
         <h3 id='class_name'>Class:</h3>
-        <div class='class-options'>
+        <div class='options'>
             {% for item in form.class_name %}
-            <div class='class-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
@@ -48,78 +48,83 @@
     </div>
     <div class='form-group form-background' id='form-background'>
         <h3 id='background'>{{ form.background.label }}:</h3>
-        <div class='background-options'>
+        <div class='options'>
             {% for item in form.background %}
-            <div class='background-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
             {% endfor %}
         </div>
+    </div>
     <div class='form-group form-strength' id='form-strength'>
         <h3 id='strength'>{{ form.strength.label }}:</h3>
-        <div class='strength-options'>
+        <div class='options'>
             {% for item in form.strength %}
-            <div class='strength-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
             {% endfor %}
+        </div>
     </div>
     <div class='form-group form-dexterity' id='form-dexterity'>
         <h3 id='dexterity'>{{ form.dexterity.label }}:</h3>
-        <div class='dexterity-options'>
+        <div class='options'>
             {% for item in form.dexterity %}
-            <div class='dexterity-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
             {% endfor %}
+        </div>
     </div>
     <div class='form-group form-constitution' id='form-constitution'>
         <h3 id='constitution'>{{ form.constitution.label }}:</h3>
-        <div class='constitution-options'>
+        <div class='options'>
             {% for item in form.constitution %}
-            <div class='constitution-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
             {% endfor %}
+        </div>
     </div>
     <div class='form-group form-intelligence' id='form-intelligence'>
         <h3 id='intelligence'>{{ form.intelligence.label }}:</h3>
-        <div class='intelligence-options'>
+        <div class='options'>
             {% for item in form.intelligence %}
-            <div class='intelligence-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
             {% endfor %}
+        </div>
     </div>
     <div class='form-group form-wisdom' id='form-wisdom'>
         <h3 id='wisdom'>{{ form.wisdom.label }}:</h3>
-        <div class='wisdom-options'>
+        <div class='options'>
             {% for item in form.wisdom %}
-            <div class='wisdom-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
             {% endfor %}
+        </div>
     </div>
     <div class='form-group form-charisma' id='form-charisma'>
         <h3 id='charisma'>{{ form.charisma.label }}:</h3>
-        <div class='charisma-options'>
+        <div class='options'>
             {% for item in form.charisma %}
-            <div class='charisma-choice'>
+            <div class='choice'>
                 <p>{{ item.tag }}</p>
                 <p>{{ item.choice_label.title }}</p>
             </div>
             {% endfor %}
-    </div>
+        </div>
     </div>
     <br />
-    {% comment %} {{form.as_p}} {% endcomment %}
-   <input class='button' type='submit' value='Make Selections' /> 
+    <input class='button' type='submit' value='Make Selections' /> 
     <input class='button' type='reset' value='Clear Selections' />
 </form>
 {% endblock %}

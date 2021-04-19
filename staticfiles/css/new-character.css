@@ -23,8 +23,7 @@
     margin: 5px;
 }
 
-.class-options,
-.race-options {
+.options {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -32,8 +31,7 @@
     margin: 20px;
 }
 
-.class-choice,
-.race-choice {
+.choice {
     flex-basis: 15%;
     margin: 5px;
 }

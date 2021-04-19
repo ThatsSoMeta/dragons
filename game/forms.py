@@ -34,5 +34,8 @@ class PlayerActionForm(forms.ModelForm):
         fields = [
             'characters',
             'difficulty',
+            'related_skill',
         ]
-
+        widgets = {
+            'characters': forms.CheckboxSelectMultiple(),
+        }

@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% block content %}
+<h1>Finalize Action</h1>
+<form action='' method='POST'>
+{% csrf_token %}
+<div class='form-group'>
+    <h3>Choose applicable characters:</h3>
+    {% for character in character_options %}
+    <div class='form-choice'>
+        <input name='char_name' type='checkbox' value='{{ character }}' />
+        <label for='char_name'>{{ character }}</label>
+    </div>
+    {% endfor %}
+</div>
+<div class='form-group'>
+    <h3>{{ form.difficulty.label }}:</h3>
+    {{ form.difficulty }}
+</div>
+{{ form.as_p }}
+<input class='button' type='submit' value='Send Action' />
+</form>
+{% endblock %}

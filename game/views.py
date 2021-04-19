@@ -6,7 +6,7 @@ from .models import (
     Game,
     GameNotes,
     ActionRequest,
-    # PlayerAction,
+    PlayerAction,
     Narrative
 )
 from .forms import (
@@ -41,7 +41,10 @@ class GameDetailView(View):
         game = Game.objects.get(gameID=game_id)
         notes = GameNotes.objects.filter(game=game).order_by('-createdAt')
         note_form = NewGameNote(initial={'game': game_id})
-        action_requests = ActionRequest.objects.filter(game=game)
+        action_requests = PlayerAction.objects.filter(
+            game=game,
+            status=PlayerAction.PENDING
+        )
         action_request_form = ActionRequestForm()
         narrative_items = Narrative.objects.filter(game=game)
         narrative_form = NarrativeForm()
@@ -108,13 +111,21 @@ class GameDetailView(View):
                     character=character,
                     text=action_request_data['text']
                 )
+                req_character = Character.objects.get(player=request.user, gameID=game.gameID)
+                PlayerAction.objects.create(
+                    game=game,
+                    requested_by=request.user,
+                    status=PlayerAction.PENDING,
+                    action_text=action_request_data['text'],
+                    player_character=req_character
+                )
         return redirect('game_details', game_id=game_id)
 
 
 class NewGame(View):
 
     def get(self, request):
-        form = NewGameForm
+        form = NewGameForm()
         return render(request, "generic_form.html", {"form": form})
 
     def post(self, request):
@@ -126,7 +137,7 @@ class NewGame(View):
                 gameName=data['gameName']
             )
             game.gamePlayers.set(data['gamePlayers'])
-        return redirect('game_list')
+        return redirect('homepage')
 
 
 def select_character(request, game_id, char_id):
@@ -136,3 +147,28 @@ def select_character(request, game_id, char_id):
     character.is_active = True
     character.save()
     return redirect(reverse('game_details', args=[game_id]))
+
+
+def reject_action(request, action_id, game_id):
+    action = PlayerAction.objects.get(id=action_id)
+    action.status = action.REJECTED
+    action.save()
+    return redirect(reverse('game_details', args=[game_id]))
+
+
+class AcceptAction(View):
+    def get(self, request, game_id, action_id):
+        action = PlayerAction.objects.get(id=action_id)
+        game = action.game
+        character_options = Character.objects.filter(gameID=game_id)
+        form = PlayerActionForm()
+        return render(
+            request,
+            'action.html',
+            {
+                'form': form,
+                'action': action,
+                'game': game,
+                'character_options': character_options,
+            }
+        )

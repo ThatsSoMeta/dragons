@@ -26,3 +26,7 @@ header {
     flex-direction: column;
     justify-content: space-between;
 }
+
+ul {
+    list-style-type: none;
+}

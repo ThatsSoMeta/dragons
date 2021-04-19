@@ -49,6 +49,17 @@ class ActionRequest(models.Model):
 
 
 class PlayerAction(models.Model):
+    PENDING = 'pending'
+    ACCEPTED = 'accepted'
+    REJECTED = 'rejected'
+
+    STATUS_CHOICES = [
+        (PENDING, PENDING),
+        (ACCEPTED, ACCEPTED),
+        (REJECTED, REJECTED)
+    ]
+
+    PASS = 'auto pass'
     EASY = 'very easy'
     PRETTY_EASY = 'somewhat easy'
     MODERATE = 'moderate'
@@ -57,12 +68,29 @@ class PlayerAction(models.Model):
     LUDICROUS = 'nearly impossible'
 
     DIFFICULTY_OPTIONS = [
+        (PASS, 0),
         (EASY, 5),
         (PRETTY_EASY, 10),
         (MODERATE, 15),
         (PRETTY_HARD, 20),
         (HARD, 25),
         (LUDICROUS, 30),
+    ]
+
+    STR = 'strength'
+    DEX = 'dexterity'
+    CON = 'constitution'
+    INT = 'intelligence'
+    WIS = 'wisdom'
+    CHA = 'charisma'
+
+    ABILITY_CHOICES = [
+        (STR, STR),
+        (DEX, DEX),
+        (CON, CON),
+        (INT, INT),
+        (WIS, WIS),
+        (CHA, CHA)
     ]
 
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
@@ -81,9 +109,22 @@ class PlayerAction(models.Model):
         choices=DIFFICULTY_OPTIONS,
         default=MODERATE
     )
+    related_skill = models.CharField(
+        max_length=30,
+        choices=ABILITY_CHOICES,
+        default=None
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=PENDING
+    )
     # What the player wants to do
-    attempt = models.CharField(max_length=250)
+    action_text = models.CharField(max_length=250)
+    requested_by = models.ForeignKey(DragonUser, on_delete=models.CASCADE)
+    player_character = models.ForeignKey(Character, on_delete=models.CASCADE)
     # The actual result based on roll
+    result_text = models.CharField(max_length=250, blank=True, null=True)
     success = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
 
