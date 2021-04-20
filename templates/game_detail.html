@@ -3,7 +3,45 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/game.css' %}" type="text/css" />
 <h1>{{game.gameName}}</h1>
+{% if user == game.gameMaster %}
+<h3>You are the Dungeon Master</h3>
+    <div id='action-requests'>
+        <h3>Action Requests:</h3>
+        {% if action_requests.count == 0 %}
+        <p>No current requests</p>
+        {% else %}
+        <div id='request-feed'>
+            {% for req in action_requests %}
+            <div id='request-object'>
+                <h5>{{ req.player_character.name }}'s request:</h5>
+                <p>{{ req.action_text }}</p>
+                <div class='button-group'>
+                    <a href='accept/{{ req.id }}/'><button>Accept</button></a>
+                    <a href='reject/{{ req.id }}/'><button>Reject</button></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+{% else %}
+<h3>You are playing as {{ character }}</h3>
+    <div id='check-object'>
+        {% if skill_checks.count > 0 %}
+        <h3>Action items that need your attention:</h3>
+        {% for check in skill_checks.all %}
+        <a href='skill_check/{{ check.id }}/'><p>You have a skill check waiting...</p></a>
+        {% endfor %}
+        {% endif %}
+    </div>
+{% endif %}
 <div id='game-flow'>
+    <h3>Game Flow</h3>
+    <div id='game-narration'>
+        {% for item in narrative_items %}
+        <p>{{ item.text }}</p>
+        {% endfor %}
+    </div>
     <div id='game-inputs'>
         {% if user == game.gameMaster %}
         <form action='' method="post">
@@ -12,21 +50,6 @@
         {{ narrative_form.as_p }}
         <input type='submit' value='Add Narration' />
         </form>
-        <div id='action-requests'>
-            <h3>Action Requests:</h3>
-            {% if action_requests.count == 0 %}
-            <p>No current requests</p>
-            {% else %}
-            {% for req in action_requests %}
-            <div id='request-object'>
-                <h5>{{ req.player_character.name }}'s request:</h5>
-                <p>{{ req.action_text }}</p>
-                <a href='accept/{{ req.id }}/'><button>Accept</button></a>
-                <a href='reject/{{ req.id }}/'><button>Reject</button></a>
-            </div>
-            {% endfor %}
-            {% endif %}
-        </div>
         {% elif character == None %}
         <p>Please select a character for the game:</p>
         <div id='game-character-selector'>
@@ -46,26 +69,14 @@
             </div>
         </div>
         {% else %}
-        <h3>Your character is {{ character.name }}</h3>
-        {% if skill_checks.count > 0 %}
-            <h3>Action items that need your attention:</h3>
-            {% for check in skill_checks.all %}
-            <a href='skill_check/{{ check.id }}/'><p>You have a skill check waiting...</p></a>
-            {% endfor %}
-        {% endif %}
+
         <form method="post" action="">
-        <h3>Action Form</h3>
+        <h3>Request Action:</h3>
         {% csrf_token %}
-        {{ action_request_form.as_p }}
-        <input type='submit' value='Make Request' />
+        <p>{{ action_request_form.text }}</p>
+        <input class='button' type='submit' value='Make Request' />
         </form>
         {% endif %}
-    </div>
-    <h3>Game Flow</h3>
-    <div id='game-narration'>
-        {% for item in narrative_items %}
-        <p>{{ item.text }}</p>
-        {% endfor %}
     </div>
 </div>
 {% if user == game.gameMaster %}

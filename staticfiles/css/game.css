@@ -31,6 +31,13 @@ ul {
     list-style-type: none;
 }
 
+#game-flow {
+    background-color: gray;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 2px;
+}
+
 #game-narration {
     height: 15rem;
     width: 90%;
@@ -43,6 +50,54 @@ ul {
     padding: 10px;
 }
 
+#request-feed {
+    flex: 1;
+    display: flex;
+    overflow-x: auto;
+}
+
 #game-narration::-webkit-scrollbar {
     display: none;
+}
+
+#request-object {
+    flex-shrink: 0;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: gray;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+#request-object >p {
+    background-color: white;
+    box-shadow: 3px 3px 5px darkgreen;
+}
+
+#request-object >h5 {
+    color: white;
+    background-color: darkgreen;
+    width: 100%;
+    font-weight: bold;
+    padding: 10px 0;
+    margin: 0 0 10px 0;
+    border-radius: 10px 10px 0 0;
+}
+
+#request-object >* {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.button-group {
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    margin: 0 20px;
 }
