@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% block content %}
+<a href='/games/detail/{{ game.gameID }}/'><button>Back to Game</button></a>
+<h1>Does {{ character.name }} have what it takes?</h1>
+<div id='skill-check-detail'>
+    <h3>Action to attempt:</h3>
+    <p>{{ action.action_text }}</p>
+    <h3>Skill: {{ action.related_skill.title }}</h3>
+    <h3>Difficulty: {{ action.difficulty.title }}</h3>
+    <h3>Score to pass: {{ threshold }}</h3>
+    {% if action.completed == False %}
+    <form method='POST' action=''>
+    {% csrf_token %}
+        <input type='submit' value='Give it a Roll!' />
+    </form>
+    {% else %}
+    <h5>Roll: {{ roll }}</h5>
+    <h5>{{ action.related_skill.title }} modifier: {{ modifier }}</h5>
+    <h2>Final score: {{ action.result }}</h2>
+    {% if action.success %}
+    <h1>YOU DID IT!!</h1>
+    <h5>Nice job!</h5>
+    {% else %}
+    <h1>Womp womp.</h1>
+    <h5>Better luck next time!</h5>
+    {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

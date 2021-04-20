@@ -4,7 +4,8 @@ from .models import (
     GameNotes,
     ActionRequest,
     PlayerAction,
-    Narrative
+    Narrative,
+    AbilityCheck
 )
 
 # Register your models here.
@@ -13,3 +14,4 @@ admin.site.register(GameNotes)
 admin.site.register(ActionRequest)
 admin.site.register(PlayerAction)
 admin.site.register(Narrative)
+admin.site.register(AbilityCheck)

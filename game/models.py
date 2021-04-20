@@ -67,6 +67,16 @@ class PlayerAction(models.Model):
     HARD = 'very hard'
     LUDICROUS = 'nearly impossible'
 
+    DIFFICULTY_DICT = {
+        PASS: 0,
+        EASY: 5,
+        PRETTY_EASY: 10,
+        MODERATE: 15,
+        PRETTY_HARD: 20,
+        HARD: 25,
+        LUDICROUS: 30
+    }
+
     DIFFICULTY_OPTIONS = [
         (PASS, 0),
         (EASY, 5),
@@ -126,15 +136,21 @@ class PlayerAction(models.Model):
     requested_by = models.ForeignKey(DragonUser, on_delete=models.CASCADE)
     player_character = models.ForeignKey(Character, on_delete=models.CASCADE)
     # The actual result based on roll
-    result_text = models.CharField(max_length=250, blank=True, null=True)
     success = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
-
-    # def ability_check(self, num_of_dice=1, sides=20):
-    #     best_roll = max(roll_dice(num_of_dice, sides))
-    #     print(best_roll)
 
 
 class Narrative(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     text = models.CharField(max_length=250)
+
+
+class AbilityCheck(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    player = models.ForeignKey(DragonUser, on_delete=models.CASCADE)
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    action = models.ForeignKey(PlayerAction, on_delete=models.CASCADE)
+    threshold = models.IntegerField(default=0)
+    related_skill = models.CharField(max_length=50, blank=True, null=True)
+    completed = models.BooleanField(default=False)
+    result = models.IntegerField(default=0)

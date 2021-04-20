@@ -30,3 +30,19 @@ header {
 ul {
     list-style-type: none;
 }
+
+#game-narration {
+    height: 15rem;
+    width: 90%;
+    overflow: scroll;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px darkgreen;
+    background-color: white;
+    margin: 10px auto;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#game-narration::-webkit-scrollbar {
+    display: none;
+}

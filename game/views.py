@@ -18,6 +18,7 @@ from .forms import (
     ActionRequestForm
 )
 from characters.models import Character
+from characters.helpers import roll_dice, get_modifier
 
 
 # Create your views here.
@@ -167,6 +168,13 @@ def reject_action(request, action_id, game_id):
     action = PlayerAction.objects.get(id=action_id)
     action.status = action.REJECTED
     action.save()
+    Narrative.objects.create(
+        game=Game.objects.get(gameID=game_id),
+        text=f"""
+        {action.player_character.name}'s request was denied:
+        {action.action_text}
+        """
+    )
     return redirect(reverse('game_details', args=[game_id]))
 
 
@@ -193,17 +201,106 @@ class AcceptAction(View):
         form = PlayerActionForm(request.POST)
         print('Action is accepted')
         print('checking entries:')
-        for entry in form.data['char_name']:
-            char = Character.objects.get(id=entry)
-            print('Adding character:', char.name)
-            action.characters.add(char)
-            action.save()
-        action.related_skill = form.data.get('related_skill')[0]
+        # for entry in form.data['char_name']:
+        #     char = Character.objects.get(id=entry)
+        #     print('Adding character:', char.name)
+        #     action.characters.add(char)
+        #     action.save()
+        action.characters.add(action.player_character)
+        action.related_skill = form.data.get('related_skill')
+        action.difficulty = form.data.get('difficulty')
         action.status = action.ACCEPTED
         action.save()
-        print('Action characters:')
-        for option in action.characters.all():
-            print(option.name)
+        if action.difficulty == action.PASS:
+            action.status = action.ACCEPTED
+            action.completed = True
+            action.success = True
+            action.save()
+            Narrative.objects.create(
+                game=game,
+                text=f"""
+                { action.player_character.name }'s request is granted:
+                { action.action_text }
+                """
+            )
         return redirect(
             reverse('game_details', args=[game.gameID])
+        )
+
+
+class AbilityCheck(View):
+    def get(self, request, game_id, action_id):
+        action = PlayerAction.objects.get(id=action_id)
+        game = Game.objects.get(gameID=game_id)
+        character = Character.objects.get(gameID=game_id, player=request.user)
+        player = character.player
+        threshold = action.DIFFICULTY_DICT.get(action.difficulty)
+        modifier = 0
+        if action.related_skill != 'n/a':
+            char_dict = character.__dict__
+            base_score = int(char_dict.get(action.related_skill))
+            modifier = get_modifier(base_score)
+            print(f"{action.related_skill} modifier:", modifier)
+        return render(
+            request,
+            'ability_check.html',
+            {
+                'action': action,
+                'game': game,
+                'character': character,
+                'player': player,
+                'threshold': threshold,
+                'modifier': modifier,
+            }
+        )
+
+    def post(self, request, game_id, action_id):
+        roll = roll_dice(1, 20)
+        action = PlayerAction.objects.get(id=action_id)
+        game = Game.objects.get(gameID=game_id)
+        character = Character.objects.get(gameID=game_id, player=request.user)
+        player = character.player
+        threshold = action.DIFFICULTY_DICT.get(action.difficulty)
+        modifier = 0
+        if action.related_skill != 'n/a':
+            char_dict = character.__dict__
+            base_score = int(char_dict.get(action.related_skill))
+            modifier = get_modifier(base_score)
+            print(f"{action.related_skill} modifier:", modifier)
+        result = roll + modifier
+        if result >= threshold:
+            action.success = True
+        else:
+            action.success = False
+        action.result = result
+        action.completed = True
+        action.save()
+        if action.success:
+            Narrative.objects.create(
+                game=game,
+                text=f"""{character.name} succeeds in the attempt:
+                {action.action_text}
+                ({result}/{threshold})
+                """
+            )
+        else:
+            Narrative.objects.create(
+                game=game,
+                text=f"""{character.name} fails the attempt:\n
+                {action.action_text}\n
+                ({result}/{threshold})
+                """
+            )
+        return render(
+            request,
+            'ability_check.html',
+            {
+                'action': action,
+                'game': game,
+                'character': character,
+                'player': player,
+                'threshold': threshold,
+                'modifier': modifier,
+                'roll': roll,
+            }
         )

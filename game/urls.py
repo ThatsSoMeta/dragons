@@ -24,4 +24,9 @@ urlpatterns = [
         views.AcceptAction.as_view(),
         name='accept_action'
     ),
+    path(
+        'detail/<uuid:game_id>/skill_check/<int:action_id>/',
+        views.AbilityCheck.as_view(),
+        name='skill_check'
+    ),
 ]

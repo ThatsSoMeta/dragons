@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/game.css' %}" type="text/css" />
-<h3>{{game.gameName}}</h3>
+<h1>{{game.gameName}}</h1>
 <div id='game-flow'>
     <div id='game-inputs'>
         {% if user == game.gameMaster %}
@@ -50,7 +50,7 @@
         {% if skill_checks.count > 0 %}
             <h3>Action items that need your attention:</h3>
             {% for check in skill_checks.all %}
-            <p>You have a skill check waiting...</p>
+            <a href='skill_check/{{ check.id }}/'><p>You have a skill check waiting...</p></a>
             {% endfor %}
         {% endif %}
         <form method="post" action="">

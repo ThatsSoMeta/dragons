@@ -3,7 +3,7 @@
 <h1>Finalize Action</h1>
 <form action='' method='POST'>
 {% csrf_token %}
-<div class='form-group'>
+{% comment %} <div class='form-group'>
     <h3>Choose applicable characters:</h3>
     {% for character in character_options.all %}
     <div class='form-choice'>
@@ -13,6 +13,10 @@
         </label>
     </div>
     {% endfor %}
+</div> {% endcomment %}
+<div class='form-group'>
+    <h3>{{ action.player_character.name.title }}'s request:</h3>
+    <p>{{ action.action_text }}</p>
 </div>
 <div class='form-group'>
     <h3>{{ form.difficulty.label }}:</h3>
