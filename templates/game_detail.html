@@ -46,11 +46,17 @@
             </div>
         </div>
         {% else %}
+        <h3>Your character is {{ character.name }}</h3>
+        {% if skill_checks.count > 0 %}
+            <h3>Action items that need your attention:</h3>
+            {% for check in skill_checks.all %}
+            <p>You have a skill check waiting...</p>
+            {% endfor %}
+        {% endif %}
         <form method="post" action="">
         <h3>Action Form</h3>
         {% csrf_token %}
         {{ action_request_form.as_p }}
-        <p>Your character is: {{ character.name }}</p>
         <input type='submit' value='Make Request' />
         </form>
         {% endif %}

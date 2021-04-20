@@ -83,8 +83,10 @@ class PlayerAction(models.Model):
     INT = 'intelligence'
     WIS = 'wisdom'
     CHA = 'charisma'
+    NA = 'n/a'
 
     ABILITY_CHOICES = [
+        (NA, NA),
         (STR, STR),
         (DEX, DEX),
         (CON, CON),
@@ -107,12 +109,12 @@ class PlayerAction(models.Model):
     difficulty = models.CharField(
         max_length=50,
         choices=DIFFICULTY_OPTIONS,
-        default=MODERATE
+        default=PASS
     )
     related_skill = models.CharField(
         max_length=30,
         choices=ABILITY_CHOICES,
-        default=None
+        default=NA,
     )
     status = models.CharField(
         max_length=20,

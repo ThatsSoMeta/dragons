@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.views import View
+# from django.db.models import Q
 # from django.views.generic.edit import CreateView
 # from django.urls import reverse_lazy
 from .models import (
@@ -50,6 +51,12 @@ class GameDetailView(View):
         narrative_form = NarrativeForm()
         player_action_form = PlayerActionForm()
         character = None
+        # skill_checks = None
+        skill_checks = PlayerAction.objects.filter(
+            game=game,
+            status=PlayerAction.ACCEPTED,
+            completed=False,
+        )
         if game.gameMaster != request.user:
             character_query = Character.objects.filter(
                 gameID=game_id,
@@ -57,7 +64,10 @@ class GameDetailView(View):
             )
             if character_query.count:
                 character = character_query.first()
-        player_characters = Character.objects.filter(player=request.user, gameID=None)
+        player_characters = Character.objects.filter(
+            player=request.user,
+            gameID=None
+        )
         return render(
             request,
             "game_detail.html",
@@ -72,6 +82,7 @@ class GameDetailView(View):
                 "player_action_form": player_action_form,
                 "character": character,
                 "player_characters": player_characters,
+                "skill_checks": skill_checks,
             }
         )
 
@@ -111,7 +122,10 @@ class GameDetailView(View):
                     character=character,
                     text=action_request_data['text']
                 )
-                req_character = Character.objects.get(player=request.user, gameID=game.gameID)
+                req_character = Character.objects.get(
+                    player=request.user,
+                    gameID=game.gameID
+                )
                 PlayerAction.objects.create(
                     game=game,
                     requested_by=request.user,
@@ -171,4 +185,25 @@ class AcceptAction(View):
                 'game': game,
                 'character_options': character_options,
             }
+        )
+
+    def post(self, request, game_id, action_id):
+        action = PlayerAction.objects.get(id=action_id)
+        game = action.game
+        form = PlayerActionForm(request.POST)
+        print('Action is accepted')
+        print('checking entries:')
+        for entry in form.data['char_name']:
+            char = Character.objects.get(id=entry)
+            print('Adding character:', char.name)
+            action.characters.add(char)
+            action.save()
+        action.related_skill = form.data.get('related_skill')[0]
+        action.status = action.ACCEPTED
+        action.save()
+        print('Action characters:')
+        for option in action.characters.all():
+            print(option.name)
+        return redirect(
+            reverse('game_details', args=[game.gameID])
         )

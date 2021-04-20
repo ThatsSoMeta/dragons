@@ -5,10 +5,12 @@
 {% csrf_token %}
 <div class='form-group'>
     <h3>Choose applicable characters:</h3>
-    {% for character in character_options %}
+    {% for character in character_options.all %}
     <div class='form-choice'>
-        <input name='char_name' type='checkbox' value='{{ character }}' />
-        <label for='char_name'>{{ character }}</label>
+        <label for='char_name'>
+        <input name='char_name' type='checkbox' value='{{ character.id }}' />
+        {{character.name}}
+        </label>
     </div>
     {% endfor %}
 </div>
@@ -16,7 +18,11 @@
     <h3>{{ form.difficulty.label }}:</h3>
     {{ form.difficulty }}
 </div>
-{{ form.as_p }}
+<div class='form-group'>
+    <h3>{{ form.related_skill.label }}</h3>
+    {{ form.related_skill }}
+</div>
+{% comment %} {{ form.as_p }} {% endcomment %}
 <input class='button' type='submit' value='Send Action' />
 </form>
 {% endblock %}
