@@ -7,12 +7,10 @@ from .models import (
     GameNotes,
     ActionRequest,
     # PlayerAction,
-    Narrative
 )
 from .forms import (
     NewGameForm,
     NewGameNote,
-    NarrativeForm,
     PlayerActionForm,
     ActionRequestForm
 )
@@ -90,14 +88,16 @@ class GameDetailView(View):
                 note_data = note_form.cleaned_data
                 game = GameNotes.objects.create(
                     game=Game.objects.get(gameID=game_id),
-                    body=note_data['body']
+                    body='Game Note - ' + note_data['body'],
+                    category = 'GameMaster'
                 )
                 print(game)
             if narrative_form.is_valid():
                 narrative_data = narrative_form.cleaned_data
-                Narrative.objects.create(
+                GameNotes.objects.create(
                     game=game,
-                    text=narrative_data['text']
+                    body='Narrative - ' + narrative_data['text'],
+                    category = 'Narrative'
                 )
         else:
             if action_request_form.is_valid():

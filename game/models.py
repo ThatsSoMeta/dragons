@@ -36,6 +36,10 @@ class GameNotes(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     body = models.CharField(max_length=280)
     createdAt = models.DateTimeField(auto_now=True)
+    category = models.CharField(max_length=15, choices=(
+('GameMaster', 'GameMaster'),
+('Player Action', 'Player Action'),
+('Narrative', 'Narrative')))
 
     def __str__(self):
         return f"{self.game} | {self.body} | {self.createdAt}"
@@ -90,8 +94,3 @@ class PlayerAction(models.Model):
     # def ability_check(self, num_of_dice=1, sides=20):
     #     best_roll = max(roll_dice(num_of_dice, sides))
     #     print(best_roll)
-
-
-class Narrative(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    text = models.CharField(max_length=250)

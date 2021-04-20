@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.models import ModelMultipleChoiceField
-from .models import ActionRequest, PlayerAction, Narrative
+from .models import ActionRequest, PlayerAction
 from users.models import DragonUser
 
 
@@ -15,11 +15,6 @@ class NewGameForm(forms.Form):
 class NewGameNote(forms.Form):
     body = forms.CharField(max_length=280)
 
-
-class NarrativeForm(forms.ModelForm):
-    class Meta:
-        model = Narrative
-        fields = ['text']
 
 
 class ActionRequestForm(forms.ModelForm):
