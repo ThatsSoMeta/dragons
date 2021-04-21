@@ -36,6 +36,14 @@ class GameNotes(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     body = models.CharField(max_length=280)
     createdAt = models.DateTimeField(auto_now=True)
+    category = models.CharField(
+        max_length=15,
+        choices=[
+            ('GameMaster', 'GameMaster'),
+            ('Player Action', 'Player Action'),
+            ('Narrative', 'Narrative')
+        ]
+    )
 
     def __str__(self):
         return f"{self.game} | {self.body} | {self.createdAt}"

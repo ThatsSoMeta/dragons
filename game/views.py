@@ -13,9 +13,9 @@ from .models import (
 from .forms import (
     NewGameForm,
     NewGameNote,
-    NarrativeForm,
     PlayerActionForm,
-    ActionRequestForm
+    ActionRequestForm,
+    NarrativeForm
 )
 from characters.models import Character
 from characters.helpers import roll_dice, get_modifier
@@ -105,11 +105,17 @@ class GameDetailView(View):
                 note_data = note_form.cleaned_data
                 game = GameNotes.objects.create(
                     game=Game.objects.get(gameID=game_id),
-                    body=note_data['body']
+                    body='Game Note - ' + note_data['body'],
+                    category='GameMaster'
                 )
                 print(game)
             if narrative_form.is_valid():
                 narrative_data = narrative_form.cleaned_data
+                GameNotes.objects.create(
+                    game=game,
+                    body='Narrative - ' + narrative_data['text'],
+                    category='Narrative'
+                )
                 Narrative.objects.create(
                     game=game,
                     text=narrative_data['text']

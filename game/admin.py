@@ -8,6 +8,7 @@ from .models import (
     AbilityCheck
 )
 
+
 # Register your models here.
 admin.site.register(Game)
 admin.site.register(GameNotes)
