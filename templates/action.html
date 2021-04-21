@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% block content %}
+<h1>Finalize Action</h1>
+<form action='' method='POST'>
+{% csrf_token %}
+{% comment %} <div class='form-group'>
+    <h3>Choose applicable characters:</h3>
+    {% for character in character_options.all %}
+    <div class='form-choice'>
+        <label for='char_name'>
+        <input name='char_name' type='checkbox' value='{{ character.id }}' />
+        {{character.name}}
+        </label>
+    </div>
+    {% endfor %}
+</div> {% endcomment %}
+<div class='form-group'>
+    <h3>{{ action.player_character.name.title }}'s request:</h3>
+    <p>{{ action.action_text }}</p>
+</div>
+<div class='form-group'>
+    <h3>{{ form.difficulty.label }}:</h3>
+    {{ form.difficulty }}
+</div>
+<div class='form-group'>
+    <h3>{{ form.related_skill.label }}</h3>
+    {{ form.related_skill }}
+</div>
+{% comment %} {{ form.as_p }} {% endcomment %}
+<input class='button' type='submit' value='Send Action' />
+</form>
+{% endblock %}

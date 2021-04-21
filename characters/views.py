@@ -42,7 +42,7 @@ class NewCharacterView(View):
             request,
             'create.html',
             {
-                'form': form,
+                'form': CharacterForm(),
                 'message': 'Your character has been saved.'
             }
         )

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.models import ModelMultipleChoiceField
-from .models import ActionRequest, PlayerAction
+from .models import ActionRequest, PlayerAction, Narrative
 from users.models import DragonUser
 
 
@@ -16,6 +16,11 @@ class NewGameNote(forms.Form):
     body = forms.CharField(max_length=280)
 
 
+class NarrativeForm(forms.ModelForm):
+    class Meta:
+        model = Narrative
+        fields = ['text']
+
 
 class ActionRequestForm(forms.ModelForm):
     class Meta:
@@ -29,5 +34,8 @@ class PlayerActionForm(forms.ModelForm):
         fields = [
             'characters',
             'difficulty',
+            'related_skill',
         ]
-
+        widgets = {
+            'characters': forms.CheckboxSelectMultiple(),
+        }
